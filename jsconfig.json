@@ -5,6 +5,13 @@
       "mui": ["node_modules/@material-ui/core"],
       "mui/*": ["node_modules/@material-ui/core/*"]
     }
-  }
+  },
+  "include": [
+    "pages/**/*",
+    "comp/**/*",
+    "node_modules/react",
+    "node_modules/next",
+    "node_modules/@material-ui/**/*"
+  ]
 }
 
