@@ -21,7 +21,9 @@ export async function getStaticProps(context) {
       console.log(e)
     }
   }
-  // TODO: sort 
+  data.sort((a,b)=>{
+    return b.create_time - a.create_time
+  })
   return {
     props: {
       data
