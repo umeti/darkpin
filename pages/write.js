@@ -9,7 +9,7 @@ import { Divider, Paper } from "@material-ui/core";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-
+import {encrypt} from "lib/crypt"
 
 export default function Write(props) {
   let router = useRouter()
@@ -53,6 +53,7 @@ export default function Write(props) {
 }
 
 function send(param, handleOk, handleError){
+  param.data.content = encrypt(param.data.content)
   param.data = JSON.stringify(param.data)
   fetch("/api/write.dev",{
     method: "PUT",

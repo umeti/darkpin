@@ -23,6 +23,7 @@ import A from "./a"
 import Head from "next/head"
 import { useRouter } from 'next/router'
 import { useState, useEffect } from "react"
+import Redirect from "./redirect"
 
 const theme = createMuiTheme({
   palette: {
@@ -32,6 +33,10 @@ const theme = createMuiTheme({
 });
 
 export default function App(props) {
+  let router = useRouter()
+  if(props.needLogin && !g.state.key){
+    return <Redirect dest={"/login#"+router.pathname} />
+  }
   return (<ThemeProvider theme={theme}>
     <Head>
       <title>
@@ -53,10 +58,7 @@ export default function App(props) {
       </Toolbar>
     </AppBar>
     <Container maxWidth="sm">
-      {props.needLogin && !g.state.key
-        ? <Login />
-        : props.children
-      }
+      {props.children}
     </Container>
   </ThemeProvider>)
 }
@@ -80,25 +82,3 @@ function Back() {
   </>)
 }
 
-function Login(props) {
-  let [password, setPassword] = useState("")
-  let [isStorage, setStorage] = useState(false)
-  return (<>
-    <Box my={20} display="flex" justifyContent="center" alignItems="flex-end">
-      <TextField label="密码"
-        value={password}
-        onChange={(e) => { setPassword(e.target.value) }}
-      />
-      <Box mx={1}>
-        <Button variant="contained" color="primary"
-          onClick={(e) => { login(password, isStorage) }}
-        >进入</Button>
-      </Box>
-    </Box>
-  </>)
-}
-
-function login(password, isStorage) {
-  g.setState('key', password)
-  // TODO: 保存密码
-}
