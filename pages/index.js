@@ -9,6 +9,11 @@ import Typography from "@material-ui/core/Typography"
 import Divider  from '@material-ui/core/Divider'
 
 import db from "lib/db"
+import g from "lib/g"
+import Redirect from "comp/redirect"
+
+import { decrypt } from 'lib/crypt'
+import { useEffect, useState } from 'react'
 export async function getStaticProps(context) {
   let data = db.query(10)
   return {
@@ -19,11 +24,21 @@ export async function getStaticProps(context) {
 }
 
 export default function Home(props) {
+  if(!g.state.key){
+    return <Redirect dest={"/login#/"} />
+  }
+  let [data, setData] = useState(props.data) 
+  useEffect(()=>{
+    data.map((v, i) => {
+      data[i].content = decrypt(v.content)
+    })
+    setData([...data])
+  },[])
   return (
     <App title="Home" needLogin>
       hello world
       <A href="about"></A>
-      {props.data.map((v, i) => (
+      {data.map((v, i) => (
         <Paper key={i} elevation={0}  >
           <CardContent>
           <Typography >
