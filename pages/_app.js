@@ -1,7 +1,10 @@
 import '../styles/globals.css'
 import Head from "next/head"
+import { useEffect, useState } from 'react'
+import g from "lib/g"
 
 function MyApp({ Component, pageProps }) {
+  g.newState("key",useState(""))
   return (<>
     <Head>
       <meta

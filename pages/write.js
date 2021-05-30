@@ -34,7 +34,7 @@ export default function Write(props) {
     </IconButton>
   </>);
 
-  return (<App title="Write" tools={tools} back>
+  return (<App title="Write" tools={tools} back needLogin>
 
     <InputBase
       placeholder="hello world"
