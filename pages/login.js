@@ -35,7 +35,11 @@ export default function Login(props) {
   </App>)
 }
 
-function login(password, isStorage) {
+export function login(password, isStorage) {
   g.setState('key', crypt.kdf(password))
   // TODO: 保存密码
+}
+
+export function logout(){
+  g.setState('key', '')
 }
