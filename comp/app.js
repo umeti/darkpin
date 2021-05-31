@@ -18,12 +18,10 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { blueGrey, brown } from '@material-ui/core/colors';
 
-import g from "lib/g"
 import A from "./a"
 import Head from "next/head"
 import { useRouter } from 'next/router'
 import { useState, useEffect } from "react"
-import Redirect from "./redirect"
 
 const theme = createMuiTheme({
   palette: {
@@ -33,10 +31,6 @@ const theme = createMuiTheme({
 });
 
 export default function App(props) {
-  let router = useRouter()
-  if(props.needLogin && !g.state.key){
-    return <Redirect dest={"/login#"+router.pathname} />
-  }
   return (<ThemeProvider theme={theme}>
     <Head>
       <title>
@@ -51,7 +45,7 @@ export default function App(props) {
           {props.title || ""}
         </Typography>
         {props.tools || (
-          <A href="/write" color="inherit" icon edge="publish" aria-label="publish">
+          <A href="/write" color="inherit" icon >
             <CreateRoundedIcon />
           </A>)
         }
@@ -74,7 +68,7 @@ function Menu(props) {
 function Back() {
   let router = useRouter()
   return (<>
-    <IconButton edge="start" color="inherit" aria-label="menu"
+    <IconButton edge="start" color="inherit" aria-label="back"
       onClick={() => router.back()}
     >
       <NavigateBeforeRoundedIcon />

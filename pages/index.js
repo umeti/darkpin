@@ -27,22 +27,16 @@ export default function Home(props) {
   if(!g.state.key){
     return <Redirect dest={"/login#/"} />
   }
-  let [data, setData] = useState(props.data) 
-  useEffect(()=>{
-    data.map((v, i) => {
-      data[i].content = decrypt(v.content)
-    })
-    setData([...data])
-  },[])
+
   return (
-    <App title="Home" needLogin>
+    <App title="Home" >
       hello world
       <A href="about"></A>
-      {data.map((v, i) => (
+      {props.data.map((v, i) => (
         <Paper key={i} elevation={0}  >
           <CardContent>
           <Typography >
-            {v.content}
+            {decrypt(v.content)}
           </Typography>
           </CardContent>
           <Divider />

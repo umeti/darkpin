@@ -10,8 +10,14 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 import {encrypt} from "lib/crypt"
+import g from "lib/g"
+import Redirect from "comp/redirect"
+
 
 export default function Write(props) {
+  if(!g.state.key){
+    return <Redirect dest={"/login#/write"} />
+  }
   let router = useRouter()
   let [content, setContent] = useState("")
   let tools = (<>
@@ -28,13 +34,12 @@ export default function Write(props) {
       alert(err)
     })}}
     disabled={content == ""}
-    edge="publish" 
     aria-label="publish">
       <PublishRoundedIcon />
     </IconButton>
   </>);
 
-  return (<App title="Write" tools={tools} back needLogin>
+  return (<App title="Write" tools={tools} back >
 
     <InputBase
       placeholder="hello world"

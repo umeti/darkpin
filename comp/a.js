@@ -6,12 +6,13 @@ import IconButton from "@material-ui/core/IconButton"
 
 
 export default function A(props) {
-  let MyLink = props.icon ? IconButton
-    : props.button ? Button
+  let {icon, button, ...linkProps} = props
+  let MyLink = icon ? IconButton
+    : button ? Button
     : Link
   return (<>
     <NextLink href={props.href} >
-      <MyLink {...props}>
+      <MyLink {...linkProps}>
         {props.children || props.text || props.href}
       </MyLink>
 
