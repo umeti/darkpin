@@ -7,10 +7,15 @@ const token = process.env["GITHUB_API_TOKEN"]
 export default (req, res) => {
   try {
     var param = JSON.parse(req.body)
-    var path = "db/content/" + param.name
+    if(param.api_key != process.env.api_key){
+      res.status(400).json({message:"invalid api key"})
+      return 
+    }
+    var path = "public/db/content/" + param.name
     var data = param.data
   } catch (err) {
     res.status(500).send(err)
+    return
   }
 
   let body = JSON.stringify({
