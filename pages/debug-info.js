@@ -3,22 +3,37 @@ import { Table, TableBody, TableCell, TableRow } from "@material-ui/core";
 import { useEffect, useState } from "react";
 
 import g from "lib/g"
+import child_process from "child_process"
 
-let buildInfo = {
-  pwd: process.cwd(),
-  NODE_ENV: process.env.NODE_ENV,
-  
+export async function getStaticProps(ctx){
+  let commit  = child_process.execSync(
+    "git --no-pager log --pretty=oneline",
+    {encoding:'utf-8'}).split('\n')[0]
+  commit = `${commit.substr(41)} (${commit.substr(0,5)})`
+  return {
+    props:{
+      info:{
+        NODE_VERSION: process.version,
+        NODE_ENV: process.env.NODE_ENV,
+        'build time': new Date().toISOString(),
+        commit,
+      }
+    }
+  }
 }
 
 export default function DebugInfo(props) {
-  let [info, setInfo] = useState(buildInfo)
+  let [info, setInfo] = useState(props.info)
   useEffect(() => {
-    setInfo(Object.assign(info,{
+    setInfo({
+      ...info,
       url: document.location,
       userAgent: window.navigator.userAgent,
+
+
       key: g.state.key,
       api_key: g.state.api_key
-    }))
+    })
     console.log("挂载完成")
 
   },[])
