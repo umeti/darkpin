@@ -1,11 +1,13 @@
 import App from "comp/app";
-import { Table, TableCell, TableRow } from "@material-ui/core";
+import { Table, TableBody, TableCell, TableRow } from "@material-ui/core";
 import { useEffect, useState } from "react";
 
 import g from "lib/g"
 
 let buildInfo = {
-  pwd: process.cwd()
+  pwd: process.cwd(),
+  NODE_ENV: process.env.NODE_ENV,
+  
 }
 
 export default function DebugInfo(props) {
@@ -16,10 +18,12 @@ export default function DebugInfo(props) {
       userAgent: window.navigator.userAgent,
       key: g.state.key
     }))
+    console.log("挂载完成")
 
-  }, [])
+  },[])
   return (<App title="Debug info">
     <Table>
+      <TableBody>
       {Object.keys(info).map((k, i) => (
         <TableRow key={i}>
           <TableCell>
@@ -30,6 +34,7 @@ export default function DebugInfo(props) {
           </TableCell>
         </TableRow>
       ))}
+      </TableBody>
     </Table>
   </App>)
 }

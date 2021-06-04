@@ -67,6 +67,7 @@ export default function App(props) {
     <Container maxWidth="sm">
       {props.children}
     </Container>
+    <Footer />
   </ThemeProvider>)
 }
 
@@ -91,8 +92,8 @@ function Menu(props) {
           <MenuItem text="调试信息" href="/debug-info" />
           <MenuItem text="关于" href="/about" />
 
-          <MenuItem text="退出登录" 
-          onClick={logout} />
+          <MenuItem text="退出登录"
+            onClick={logout} />
 
         </List>
         {/* <Footer /> */}
@@ -104,10 +105,10 @@ function Menu(props) {
 
 function MenuItem({ text, href, icon, onClick }) {
   let Icon = icon
-  function Link(props){
-    return props.href ? 
-    <NextLink {...props} /> : 
-    <>{props.children}</>
+  function Link(props) {
+    return props.href ?
+      <NextLink {...props} /> :
+      <>{props.children}</>
   }
   return (<>
     <Link href={href}>
@@ -134,3 +135,10 @@ function Back() {
   </>)
 }
 
+function Footer() {
+  return (<>
+    <Box py={5}>
+
+    </Box>
+  </>)
+}
