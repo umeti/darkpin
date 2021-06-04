@@ -9,7 +9,7 @@ export default (req,res) => {
     return 
   }
 
-  fs.writeFile("db/content/"+param.name, param.data, "utf8",(err)=>{
+  fs.writeFile("public/db/content/"+param.name, param.data, "utf8",(err)=>{
     if (err){
       res.status(500).json({message:err})
       return
