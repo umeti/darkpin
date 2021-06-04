@@ -16,7 +16,8 @@ export default function DebugInfo(props) {
     setInfo(Object.assign(info,{
       url: document.location,
       userAgent: window.navigator.userAgent,
-      key: g.state.key
+      key: g.state.key,
+      api_key: g.state.api_key
     }))
     console.log("挂载完成")
 

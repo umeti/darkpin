@@ -5,6 +5,7 @@ import g from "lib/g"
 
 function MyApp({ Component, pageProps }) {
   g.newState("key",useState(""))
+  g.newState("api_key",useState(""))
   return (<>
     <Head>
       <meta

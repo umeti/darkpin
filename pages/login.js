@@ -37,9 +37,11 @@ export default function Login(props) {
 
 export function login(password, isStorage) {
   g.setState('key', crypt.kdf(password))
+  g.setState('api_key', crypt.kdf(g.state.key+g.api_salt))
   // TODO: 保存密码
 }
 
 export function logout(){
   g.setState('key', '')
+  g.setState('api_key', '')
 }

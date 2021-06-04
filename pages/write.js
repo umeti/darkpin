@@ -27,7 +27,7 @@ export default function Write(props) {
         create_time: new Date().getTime(),
         content
       },
-      name: "_"+new Date().getTime()
+      name: (g.dev?"_":"")+new Date().getTime()
     },()=>{
       router.replace("/")
     },(err)=>{
@@ -60,7 +60,9 @@ export default function Write(props) {
 function send(param, handleOk, handleError){
   param.data.content = encrypt(param.data.content)
   param.data = JSON.stringify(param.data)
-  fetch("/api/write.dev",{
+  param.api_key = g.state.api_key
+  console.log(param)
+  fetch("/api/write"+(g.dev?".dev":""),{
     method: "PUT",
     body: JSON.stringify(param),
   })
